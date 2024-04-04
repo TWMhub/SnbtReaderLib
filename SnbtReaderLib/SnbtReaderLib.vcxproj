@@ -133,7 +133,7 @@
   <ItemGroup>
     <ClCompile Include="ClassQuest.cpp" />
     <ClCompile Include="ClassText.cpp" />
-    <ClCompile Include="typeToString.cpp" />
+    <ClCompile Include="depozit.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

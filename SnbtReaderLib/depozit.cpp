@@ -1,5 +1,4 @@
 #include "SnbtReader.h"
-
 namespace depozit {
 	std::string typeToString(Type type) {
 		switch (type) {
