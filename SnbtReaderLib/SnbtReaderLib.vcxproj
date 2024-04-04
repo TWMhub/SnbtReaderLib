@@ -128,7 +128,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="ClassTextLine.h" />
+    <ClInclude Include="SnbtReader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClassTextLine.cpp" />

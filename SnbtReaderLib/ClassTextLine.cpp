@@ -1,4 +1,4 @@
-#include "ClassTextLine.h"
+#include "SnbtReader.h"
 
 Text::Text(Type type, std::string originalText) {
 	this->type = type;
