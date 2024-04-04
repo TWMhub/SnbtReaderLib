@@ -9,6 +9,11 @@ enum class Type {
 	description
 };
 
+namespace depozit {
+	std::string typeToString(Type type);
+}
+
+
 class Text {
 public:
 	Text(Type type, std::string originalText);
