@@ -58,3 +58,7 @@ void Quest::setTranslatedArray(std::string originalText, std::string translatedT
 		}
 	}
 }
+
+std::string Quest::getQuest() {
+	return quest;
+}
