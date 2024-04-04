@@ -1,5 +1,11 @@
 #include "SnbtReader.h"
 
+//Text::Text() {
+//	this->type = Type::title;
+//	this->originalText = "";
+//	this->translatedText = "";
+//};
+
 Text::Text(Type type, std::string originalText) {
 	this->type = type;
 	this->originalText = originalText;

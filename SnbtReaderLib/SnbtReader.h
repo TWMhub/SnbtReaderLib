@@ -16,7 +16,7 @@ namespace depozit {
 
 class Text {
 public:
-	Text();
+	//Text();
 	Text(Type type, std::string originalText);
 	Text(Type type, std::string originalText, std::string translatedText);
 	void setTranslate(std::string translatedText);
@@ -29,9 +29,9 @@ protected:
 	std::string translatedText = "";
 };
 
-class Quest: public Text {
+class Quest{
 public:
-	Quest();
+	//Quest();
 	Quest(std::string quest);
 	std::vector<Text> getTextArray() const;
 	void setTranslatedArray(std::string originalText, std::string translatedText);
@@ -44,7 +44,7 @@ protected:
 	void setArrayText(Type type, std::string originalText);
 };
 
-class SnbtReader: public Quest {
+class SnbtReader{
 public:
 	SnbtReader(std::string text);
 	std::string getBuiltFile();

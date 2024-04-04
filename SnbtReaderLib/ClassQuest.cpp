@@ -1,5 +1,10 @@
 #include "SnbtReader.h"
 
+//Quest::Quest() {
+//	this->quest = "";
+//	textAnalyzing("");
+//};
+
 Quest::Quest(std::string quest) {
 	this->quest = quest;
 	textAnalyzing(quest);
