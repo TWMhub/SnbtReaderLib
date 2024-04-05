@@ -13,10 +13,10 @@ namespace depozit {
 		}
 	}
 
+
     std::wstring stringToWstring(const std::string& str) {
         int length = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), -1, nullptr, 0);
         if (length == 0) {
-            // Обработка ошибки
             return L"";
         }
         std::wstring wstr(length, 0);
@@ -24,11 +24,9 @@ namespace depozit {
         return wstr;
     }
 
-    // Функция для преобразования std::wstring в std::string
     std::string wstringToString(const std::wstring& wstr) {
         int length = WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), -1, nullptr, 0, nullptr, nullptr);
         if (length == 0) {
-            // Обработка ошибки
             return "";
         }
         std::string str(length, 0);
