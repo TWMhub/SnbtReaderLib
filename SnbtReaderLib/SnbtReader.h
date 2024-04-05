@@ -21,49 +21,47 @@ namespace depozit {
 
 	class Text {
 	public:
-		//Text();
-		Text(Type type, std::string originalText);
-		Text(Type type, std::string originalText, std::string translatedText);
-		void setTranslate(std::string translatedText);
+		Text(Type type, std::wstring originalText);
+		Text(Type type, std::wstring originalText, std::wstring translatedText);
+		void setTranslate(std::wstring translatedText);
 		Type getType() const;
-		std::string getOriginalText() const;
-		std::string getTranslatedText() const;
+		std::wstring getOriginalText() const;
+		std::wstring getTranslatedText() const;
 	protected:
 		Type type = Type::title;
-		std::string originalText = "";
-		std::string translatedText = "";
+		std::wstring originalText = "";
+		std::wstring translatedText = "";
 	};
 
 	class Quest {
 	public:
-		//Quest();
-		Quest(std::string quest);
+		Quest(std::wstring quest);
 		std::vector<Text> getTextArray() const;
 		void setTranslatedArray(std::string originalText, std::string translatedText);
-		std::string getQuest();
+		std::wstring getQuest();
 		void replaceTranslate(); //replace orinial text to translated text in quest
 	protected:
-		std::string quest = "";
+		std::wstring quest = "";
 		std::vector<Text> textArray;
 
-		void textAnalyzing(std::string text);
-		void setArrayText(Type type, std::string originalText);
+		void textAnalyzing(std::wstring text);
+		void setArrayText(Type type, std::wstring originalText);
 	};
 
 	class SnbtReader {
 	public:
-		SnbtReader(std::string text);
-		std::string getBuiltFile();
+		SnbtReader(std::wstring text);
+		std::wstring getBuiltFile();
 		std::vector<Quest> getQuestArray() const;
 		void writeQuestArray(std::vector<Quest> questArray);
 	private:
-		std::string inputString = "";
-		std::string metaInf1 = "";
-		std::string metaInf2 = "";
+		std::wstring inputString = "";
+		std::wstring metaInf1 = "";
+		std::wstring metaInf2 = "";
 		std::vector<Quest> questArray;
-		void AnalizeFile(std::string text);
-		void allocationQuests(std::string quests);
-		std::string buildFile();
+		void AnalizeFile(std::wstring text);
+		void allocationQuests(std::wstring quests);
+		std::wstring buildFile();
 	};
 
 };

@@ -1,20 +1,20 @@
 #include "SnbtReader.h"
 
 namespace depozit {
-	Quest::Quest(std::string quest) {
+	Quest::Quest(std::wstring quest) {
 		this->quest = quest;
 		textAnalyzing(quest);
 	}
 
-	void Quest::textAnalyzing(std::string text) {
+	void Quest::textAnalyzing(std::wstring text) {
 		size_t firstQuote;
 		size_t secondQuote;
 		for (int i = 0; i < text.length(); i++) {
 			if (text.substr(i, 8) == "subtitle") {
 				firstQuote = text.find("\"", i + 8);
-				if (firstQuote != std::string::npos) {
+				if (firstQuote != std::wstring::npos) {
 					secondQuote = text.find("\"", firstQuote + 1);
-					if (secondQuote != std::string::npos) {
+					if (secondQuote != std::wstring::npos) {
 						setArrayText(Type::subtitle, text.substr(firstQuote + 1, secondQuote - firstQuote - 1));
 					}
 				}

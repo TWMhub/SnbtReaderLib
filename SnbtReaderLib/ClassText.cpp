@@ -2,19 +2,19 @@
 
 namespace depozit {
 
-	Text::Text(Type type, std::string originalText) {
+	Text::Text(Type type, std::wstring originalText) {
 		this->type = type;
 		this->originalText = originalText;
 		this->translatedText = "";
 	};
 
-	Text::Text(Type type, std::string originalText, std::string translatedText) {
+	Text::Text(Type type, std::wstring originalText, std::wstring translatedText) {
 		this->type = type;
 		this->originalText = originalText;
 		this->translatedText = translatedText;
 	};
 
-	void Text::setTranslate(std::string translatedText) {
+	void Text::setTranslate(std::wstring translatedText) {
 		this->translatedText = translatedText;
 	}
 
@@ -22,11 +22,11 @@ namespace depozit {
 		return this->type;
 	}
 
-	std::string Text::getOriginalText() const {
+	std::wstring Text::getOriginalText() const {
 		return this->originalText;
 	}
 
-	std::string Text::getTranslatedText() const {
+	std::wstring Text::getTranslatedText() const {
 		return this->translatedText;
 	}
 
