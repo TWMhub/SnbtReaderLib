@@ -48,6 +48,8 @@ class SnbtReader{
 public:
 	SnbtReader(std::string text);
 	std::string getBuiltFile();
+	std::vector<Quest> getQuestArray() const;
+	void writeQuestArray(std::vector<Quest> questArray);
 private:
 	std::string inputString = "";
 	std::string metaInf1 = "";
