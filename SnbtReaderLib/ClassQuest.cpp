@@ -64,4 +64,8 @@ namespace depozit {
 		return quest;
 	}
 
+	void Quest::replaceTranslate() {//dopisat' posle fixa herowogo chtenia
+
+	};
+
 };
