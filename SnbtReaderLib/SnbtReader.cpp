@@ -21,7 +21,7 @@ void SnbtReader::AnalizeFile(std::string text) {
 				globalBracket2 = text.find_last_of("}",text.find_last_of("]"));
 				if (globalBracket2 != std::string::npos) {
 					metaInf2 = text.substr(globalBracket2 + 1);
-					this->allocationQuests(text.substr(globalBracket1 + 2, globalBracket2 - globalBracket1 + 1)); //ебанина блять globalBracket1 вообще не туда ставит.
+					this->allocationQuests(text.substr(globalBracket1 + 2, globalBracket2 - globalBracket1 + 1)); 
 				}
 			}
 			break;

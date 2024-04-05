@@ -36,6 +36,7 @@ public:
 	std::vector<Text> getTextArray() const;
 	void setTranslatedArray(std::string originalText, std::string translatedText);
 	std::string getQuest();
+	void replaceTranslate(); //replace orinial text to translated text in quest
 protected:
 	std::string quest = "";
 	std::vector<Text> textArray;
