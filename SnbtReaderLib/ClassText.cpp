@@ -1,35 +1,33 @@
 #include "SnbtReader.h"
 
-//Text::Text() {
-//	this->type = Type::title;
-//	this->originalText = "";
-//	this->translatedText = "";
-//};
+namespace depozit {
 
-Text::Text(Type type, std::string originalText) {
-	this->type = type;
-	this->originalText = originalText;
-	this->translatedText = "";
-};
+	Text::Text(Type type, std::string originalText) {
+		this->type = type;
+		this->originalText = originalText;
+		this->translatedText = "";
+	};
 
-Text::Text(Type type, std::string originalText, std::string translatedText) {
-	this->type = type;
-	this->originalText = originalText;
-	this->translatedText = translatedText;
-};
+	Text::Text(Type type, std::string originalText, std::string translatedText) {
+		this->type = type;
+		this->originalText = originalText;
+		this->translatedText = translatedText;
+	};
 
-void Text::setTranslate(std::string translatedText) {
-	this->translatedText = translatedText;
-}
+	void Text::setTranslate(std::string translatedText) {
+		this->translatedText = translatedText;
+	}
 
-Type Text::getType() const {
-	return this->type;
-}
+	Type Text::getType() const {
+		return this->type;
+	}
 
-std::string Text::getOriginalText() const {
-	return this->originalText;
-}
+	std::string Text::getOriginalText() const {
+		return this->originalText;
+	}
 
-std::string Text::getTranslatedText() const {
-	return this->translatedText;
+	std::string Text::getTranslatedText() const {
+		return this->translatedText;
+	}
+
 }
