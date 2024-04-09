@@ -43,7 +43,7 @@ namespace depozit {
 		}
 	}
 
-	void Quest::setArrayText(Type type, std::string originalText) {
+	void Quest::setArrayText(Type type, std::wstring originalText) {
 		textArray.push_back(Text{ type,originalText });
 	}
 

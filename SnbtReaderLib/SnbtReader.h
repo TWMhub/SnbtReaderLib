@@ -29,19 +29,19 @@ namespace depozit {
 		std::wstring getTranslatedText() const;
 	protected:
 		Type type = Type::title;
-		std::wstring originalText = "";
-		std::wstring translatedText = "";
+		std::wstring originalText = L"";
+		std::wstring translatedText = L"";
 	};
 
 	class Quest {
 	public:
 		Quest(std::wstring quest);
 		std::vector<Text> getTextArray() const;
-		void setTranslatedArray(std::string originalText, std::string translatedText);
+		void setTranslatedArray(std::wstring originalText, std::wstring translatedText);
 		std::wstring getQuest();
 		void replaceTranslate(); //replace orinial text to translated text in quest
 	protected:
-		std::wstring quest = "";
+		std::wstring quest = L"";
 		std::vector<Text> textArray;
 
 		void textAnalyzing(std::wstring text);
@@ -50,17 +50,19 @@ namespace depozit {
 
 	class SnbtReader {
 	public:
-		SnbtReader(std::wstring text);
+		SnbtReader(std::vector<std::string> fileByLine);
 		std::wstring getBuiltFile();
 		std::vector<Quest> getQuestArray() const;
 		void writeQuestArray(std::vector<Quest> questArray);
 	private:
-		std::wstring inputString = "";
-		std::wstring metaInf1 = "";
-		std::wstring metaInf2 = "";
+		//std::wstring inputString = L"";
+		std::vector<std::string> fileByLine;
+
+		std::string metaInf1 = "";
+		std::string metaInf2 = "";
 		std::vector<Quest> questArray;
-		void AnalizeFile(std::wstring text);
-		void allocationQuests(std::wstring quests);
+		void AnalizeFile();
+		void allocationQuests(std::vector<std::string> quests);
 		std::wstring buildFile();
 	};
 
