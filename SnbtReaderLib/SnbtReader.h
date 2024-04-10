@@ -21,14 +21,14 @@ namespace depozit {
 
 	class Text {
 	public:
-		//Text();
-		Text(Type type, std::string originalText);
-		Text(Type type, std::string originalText, std::string translatedText);
+		Text(int pos, Type type, std::string originalText);
+		//Text(int pos, Type type, std::wstring originalText, std::wstring translatedText);
 		void setTranslate(std::string translatedText);
 		Type getType() const;
 		std::string getOriginalText() const;
 		std::string getTranslatedText() const;
 	protected:
+		int posTextIndex = 0;
 		Type type = Type::title;
 		std::string originalText = "";
 		std::string translatedText = "";
@@ -36,33 +36,34 @@ namespace depozit {
 
 	class Quest {
 	public:
-		//Quest();
-		Quest(std::string quest);
+		Quest(std::vector<std::string> quest);
 		std::vector<Text> getTextArray() const;
-		void setTranslatedArray(std::string originalText, std::string translatedText);
 		std::string getQuest();
-		void replaceTranslate(); //replace orinial text to translated text in quest
+		void setTranslatedArray(int line, std::string translatedText);
+		void replaceTranslate(); //replace orinial text to translated text in quest //last step before writing to file
 	protected:
-		std::string quest = "";
+		std::vector<std::string> quest;
 		std::vector<Text> textArray;
 
-		void textAnalyzing(std::string text);
-		void setArrayText(Type type, std::string originalText);
+		void textAnalyzing(std::vector<std::string> quest);
+		//void setArrayText(int pos, Type type, std::string originalText);
 	};
 
 	class SnbtReader {
 	public:
-		SnbtReader(std::string text);
+		SnbtReader(std::vector<std::string> fileByLine);
 		std::string getBuiltFile();
 		std::vector<Quest> getQuestArray() const;
 		void writeQuestArray(std::vector<Quest> questArray);
 	private:
-		std::string inputString = "";
+		//std::wstring inputString = L"";
+		std::vector<std::string> fileByLine;
+
 		std::string metaInf1 = "";
 		std::string metaInf2 = "";
 		std::vector<Quest> questArray;
-		void AnalizeFile(std::string text);
-		void allocationQuests(std::string quests);
+		void AnalizeFile();
+		void allocationQuests(std::vector<std::string> quests);
 		std::string buildFile();
 	};
 

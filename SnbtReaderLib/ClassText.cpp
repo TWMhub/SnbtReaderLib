@@ -2,17 +2,18 @@
 
 namespace depozit {
 
-	Text::Text(Type type, std::string originalText) {
+	Text::Text(int pos, Type type, std::string originalText) {
+		this->posTextIndex = pos;
 		this->type = type;
 		this->originalText = originalText;
 		this->translatedText = "";
 	};
 
-	Text::Text(Type type, std::string originalText, std::string translatedText) {
+	/*Text::Text(Type type, std::wstring originalText, std::wstring translatedText) {
 		this->type = type;
 		this->originalText = originalText;
 		this->translatedText = translatedText;
-	};
+	};*/
 
 	void Text::setTranslate(std::string translatedText) {
 		this->translatedText = translatedText;
