@@ -21,37 +21,38 @@ namespace depozit {
 
 	class Text {
 	public:
-		Text(Type type, std::wstring originalText);
-		Text(Type type, std::wstring originalText, std::wstring translatedText);
+		Text(int pos, Type type, std::string originalText);
+		//Text(int pos, Type type, std::wstring originalText, std::wstring translatedText);
 		void setTranslate(std::wstring translatedText);
 		Type getType() const;
-		std::wstring getOriginalText() const;
-		std::wstring getTranslatedText() const;
+		std::string getOriginalText() const;
+		std::string getTranslatedText() const;
 	protected:
+		int posTextIndex = 0;
 		Type type = Type::title;
-		std::wstring originalText = L"";
-		std::wstring translatedText = L"";
+		std::string originalText = "";
+		std::string translatedText = "";
 	};
 
 	class Quest {
 	public:
-		Quest(std::wstring quest);
+		Quest(std::vector<std::string> quest);
 		std::vector<Text> getTextArray() const;
-		void setTranslatedArray(std::wstring originalText, std::wstring translatedText);
-		std::wstring getQuest();
-		void replaceTranslate(); //replace orinial text to translated text in quest
+		std::string getQuest();
+		void setTranslatedArray(std::string originalText, std::string translatedText);
+		void replaceTranslate(); //replace orinial text to translated text in quest //last step before writing to file
 	protected:
-		std::wstring quest = L"";
+		std::vector<std::string> quest;
 		std::vector<Text> textArray;
 
-		void textAnalyzing(std::wstring text);
-		void setArrayText(Type type, std::wstring originalText);
+		void textAnalyzing(std::vector<std::string> quest);
+		void setArrayText(int pos, Type type, std::string originalText);
 	};
 
 	class SnbtReader {
 	public:
 		SnbtReader(std::vector<std::string> fileByLine);
-		std::wstring getBuiltFile();
+		std::string getBuiltFile();
 		std::vector<Quest> getQuestArray() const;
 		void writeQuestArray(std::vector<Quest> questArray);
 	private:
@@ -63,7 +64,7 @@ namespace depozit {
 		std::vector<Quest> questArray;
 		void AnalizeFile();
 		void allocationQuests(std::vector<std::string> quests);
-		std::wstring buildFile();
+		std::string buildFile();
 	};
 
 };

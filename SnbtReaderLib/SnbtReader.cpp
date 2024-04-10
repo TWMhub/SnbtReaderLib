@@ -25,19 +25,19 @@ namespace depozit {
 				for (int j = 0; j <= i; j++) {
 					metainf += this->fileByLine[j];
 				}
-				this->metaInf1 = metaInf1;
+				this->metaInf1 = metainf;
 				metainf.clear();
 
-				for (int j = this->fileByLine.size(); j > 0; j++) {
+				for (int j = this->fileByLine.size() - 1; j > 0; j--) {
 					if (this->fileByLine[j].find("]")) {
 
 						questBoundaryPosition2 = j;
 
-						for (int c = this->fileByLine.size(); c >= j; c++) {
+						for (int c = this->fileByLine.size(); c >= j; c--) {
 							metainf = fileByLine[c] + metainf;
-							this->metaInf2 = metainf;
-							metainf.clear();
 						}
+						this->metaInf2 = metainf;
+						metainf.clear();
 						break;
 					}
 				}
@@ -52,26 +52,22 @@ namespace depozit {
 
 	};
 
-	void SnbtReader::allocationQuests(std::vector<std::string> quests) {
-		std::vector<std::string> lines;
-		int posGlobalBracket = 0;
-		int lastBraket = 0;
-		std::string ouputQuest = "";
-		std::istringstream iss(quests);
-		std::string line = "";
-		while (std::getline(iss, line)) {
-			lines.push_back(line);
-		}
-		posGlobalBracket = lines[0].find("{");
-		for (int i = 0; i < lines.size() - 1; i++) {
-			if (lines[i][posGlobalBracket] == '}') {
-				ouputQuest = "";
-				for (int j = lastBraket; j < i + 1; j++) {
-					ouputQuest += lines[j] + "\n";
-					lastBraket = j + 1;
-				}
-				this->questArray.push_back(Quest{ ouputQuest });
+	void SnbtReader::allocationQuests(std::vector<std::string> quests) { //splitting quests and adding them to the vector
 
+		int questBracketPositions = quests[0].find("{");
+		int firstBorder = 0;
+
+		std::vector<std::string> quest;
+
+		for (int i = 0; i < quests.size(); i++) {
+			if (quests[i][questBracketPositions] == '}') {
+				for (int j = firstBorder; j <= i; j++) {
+					quest.push_back(quest[j]);
+				}
+				this->questArray.push_back(Quest{ quest });
+				quest.clear();
+
+				firstBorder = i + 1;
 			}
 		}
 	};
@@ -79,7 +75,7 @@ namespace depozit {
 	std::string SnbtReader::buildFile() {
 		std::string output = metaInf1 + "\n";
 		for (int i = 0; i < this->questArray.size(); i++) {
-			output += this->questArray[i].getQuest();
+			output += questArray[i].getQuest();
 		}
 		output += this->metaInf2;
 		return output;
