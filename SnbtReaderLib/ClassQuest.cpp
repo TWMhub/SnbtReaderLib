@@ -49,7 +49,7 @@ namespace depozit {
 		return this->textArray;
 	}
 
-	void Quest::setTranslatedArray(int line, std::string translatedText) {
+	void Quest::setTranslatedArray(int line, std::string translatedText) {//tut huinia
 		quest[line].replace(quest[line].find("\"") + 1, quest[line].find_last_of("\"") - quest[line].find("\"") - 1, translatedText);
 	}
 
@@ -57,6 +57,9 @@ namespace depozit {
 		std::string outputQuest;
 		for (int i = 0; i < this->quest.size(); i++) {
 			outputQuest += this->quest[i];
+			if (i != this->quest.size() - 1) {
+				outputQuest += "\n";
+			}
 		}
 		return outputQuest;
 	}
