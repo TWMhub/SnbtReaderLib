@@ -23,7 +23,7 @@ namespace depozit {
 	public:
 		Text(int pos, Type type, std::string originalText);
 		//Text(int pos, Type type, std::wstring originalText, std::wstring translatedText);
-		void setTranslate(std::wstring translatedText);
+		void setTranslate(std::string translatedText);
 		Type getType() const;
 		std::string getOriginalText() const;
 		std::string getTranslatedText() const;
@@ -39,14 +39,14 @@ namespace depozit {
 		Quest(std::vector<std::string> quest);
 		std::vector<Text> getTextArray() const;
 		std::string getQuest();
-		void setTranslatedArray(std::string originalText, std::string translatedText);
+		void setTranslatedArray(int line, std::string translatedText);
 		void replaceTranslate(); //replace orinial text to translated text in quest //last step before writing to file
 	protected:
 		std::vector<std::string> quest;
 		std::vector<Text> textArray;
 
 		void textAnalyzing(std::vector<std::string> quest);
-		void setArrayText(int pos, Type type, std::string originalText);
+		//void setArrayText(int pos, Type type, std::string originalText);
 	};
 
 	class SnbtReader {
