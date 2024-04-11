@@ -2,17 +2,31 @@
 
 namespace depozit {
 
-	SnbtReader::SnbtReader(std::vector<std::string> fileByLine) {
+	SnbtReader::SnbtReader(std::vector<std::string> fileByLine) { //basic constructor
 		this->fileByLine.clear();
 		this->fileByLine = fileByLine;
 		this->AnalizeFile();
-	};
+	}
 
-	std::string SnbtReader::getBuiltFile() {
+	std::vector<Quest> SnbtReader::getQuestArray() const { //return quests array
+		return this->questArray;
+	}
+
+	void SnbtReader::writeQuestArray(std::vector<Quest> questArray) { //set new quest array
+		this->questArray = questArray;
+	}
+
+	void SnbtReader::setTranslate() { //replace original string to traslated
+		for (int i = 0; i < questArray.size(); i++) {
+			questArray[i].replaceTranslate();
+		}
+	}
+
+	std::string SnbtReader::getBuiltFile() { //return complete file as string //is needed to write the translated file back to the file
 		return buildFile();
-	};
+	}
 
-	void SnbtReader::AnalizeFile() { //metaInf(1,2) + start allocationQuests
+	void SnbtReader::AnalizeFile() { //extracts metainf and transfers all the quests to allocationQuests
 		std::vector<std::string> quests;
 		std::string metainf = "";
 		int questBoundaryPosition1 = 0;
@@ -52,7 +66,7 @@ namespace depozit {
 
 		this->allocationQuests(quests);
 
-	};
+	}
 
 	void SnbtReader::allocationQuests(std::vector<std::string> quests) { //splitting quests and adding them to the vector
 
@@ -75,21 +89,15 @@ namespace depozit {
 				}
 			}
 		}
-	};
+	}
 
-	std::string SnbtReader::buildFile() {
+	std::string SnbtReader::buildFile() { //build file as string
 		std::string output = metaInf1;
 		for (int i = 0; i < this->questArray.size(); i++) {
 			output += questArray[i].getQuest()+"\n";
 		}
 		output += this->metaInf2;
 		return output;
-	};
-
-	std::vector<Quest> SnbtReader::getQuestArray() const {
-		return this->questArray;
 	}
-	void SnbtReader::writeQuestArray(std::vector<Quest> questArray) {
-		this->questArray = questArray;
-	};
+	
 }
