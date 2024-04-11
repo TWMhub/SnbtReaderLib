@@ -1,7 +1,7 @@
 #include "SnbtReader.h"
 namespace depozit {
 
-	std::string typeToString(Type type) { //convert enum class Type to string
+	std::string typeToString(const Type type) { //convert enum class Type to string
 		switch (type) {
 		case Type::title:
 			return "title";

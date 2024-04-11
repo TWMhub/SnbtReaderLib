@@ -2,7 +2,7 @@
 
 namespace depozit {
 
-	SnbtReader::SnbtReader(std::vector<std::string> fileByLine) { //basic constructor
+	SnbtReader::SnbtReader(const std::vector<std::string>& fileByLine) { //basic constructor
 		this->fileByLine.clear();
 		this->fileByLine = fileByLine;
 		this->AnalizeFile();
@@ -12,7 +12,7 @@ namespace depozit {
 		return this->questArray;
 	}
 
-	void SnbtReader::writeQuestArray(std::vector<Quest> questArray) { //set new quest array
+	void SnbtReader::writeQuestArray(const std::vector<Quest>& questArray) { //set new quest array
 		this->questArray = questArray;
 	}
 
@@ -22,7 +22,7 @@ namespace depozit {
 		}
 	}
 
-	std::string SnbtReader::getBuiltFile() { //return complete file as string //is needed to write the translated file back to the file
+	std::string SnbtReader::getBuiltFile(){ //return complete file as string //is needed to write the translated file back to the file
 		return buildFile();
 	}
 
@@ -68,7 +68,7 @@ namespace depozit {
 
 	}
 
-	void SnbtReader::allocationQuests(std::vector<std::string> quests) { //splitting quests and adding them to the vector
+	void SnbtReader::allocationQuests(const std::vector<std::string>& quests) { //splitting quests and adding them to the vector
 
 		int questBracketPositions = quests[0].find("{");
 		int firstBorder = 0;

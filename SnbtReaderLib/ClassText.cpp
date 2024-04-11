@@ -28,7 +28,7 @@ namespace depozit {
 		return this->type;
 	}
 
-	void Text::setTranslate(std::string translatedText) { //add traslate text
+	void Text::setTranslate(const std::string& translatedText) { //add traslate text
 		this->translatedText = translatedText;
 	}
 

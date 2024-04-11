@@ -2,7 +2,7 @@
 
 namespace depozit {
 
-	Quest::Quest(std::vector<std::string> quest) { //basic constructor
+	Quest::Quest(const std::vector<std::string>& quest) { //basic constructor
 		this->quest = quest;
 		textAnalyzing(quest);
 	}
@@ -31,7 +31,7 @@ namespace depozit {
 	}
 
 	//private||protected
-	void Quest::textAnalyzing(std::vector<std::string> quest) { //analyzes the quest and extracts text for translation
+	void Quest::textAnalyzing(const std::vector<std::string>& quest) { //analyzes the quest and extracts text for translation
 		size_t firstQuote;
 		size_t secondQuote;
 		//bool isTranslatable = false;
