@@ -16,21 +16,36 @@ An example of using the library to analyze an FTB Quests file and translate its 
 #include "SnbtReader.h"
 
 int main() {
-    // Open the FTB Quests file
+    //open the FTB Quests file
     std::ifstream inputFile("quest_file.snbt");
 
-    // Create a SnbtReader object and pass the file to it
-    depozit::SnbtReader reader(inputFile);
+    //create a SnbtReader object and pass the file to it
+    std::vector<std::string> fileByLine;
+    std::string a;
+    if (file.is_open()) {
+	    while (std::getline(file, a)) {
+		    fileByLine.push_back(a);
+	    }
+    }
+    depozit::SnbtReader reader(fileByLine);
 
-    // Get the array of quests from the file
+    //get the array of quests from the file
     std::vector<depozit::Quest> quests = reader.getQuestArray();
 
-    // Further according to your needs
-    
-    // Write the modified quests back to the file
-    reader.writeQuestArray(quests);
+    //getting all texts for translation
+    for (int i = 0; i < reader.getQuestArray().size(); i++) {
+    	for (int j = 0; j < reader.getQuestArray()[i].getTextArray().size(); j++) {
+    		std::cerr << "type: " << depozit::typeToString(reader.getQuestArray()[i].getTextArray()[j].getType()) << " text: " << reader.getQuestArray()[i].getTextArray()[j].getOriginalText() << "\n";
+    	}
+    }
 
-    // Get the complete string to rewrite the file with quests
+    //example of a translation replacement
+    reader.getQuestArray()[indexArray].getTextArray()[indexText].setTranslate("translatedText");
+
+    //after making the transfer, you can replace it
+    reader.getQuestArray()[indexArray].replaceTranslate();
+    
+    //get the complete string to rewrite the file with quests
     std::string ouputString = reader.getBuiltFile();
     return 0;
 }
@@ -57,21 +72,36 @@ This project is licensed under the [MIT License](https://mit-license.org/).
 #include "SnbtReader.h"
 
 int main() {
-    // Открываем файл FTB Quests
+    //открываем файлик с квестами
     std::ifstream inputFile("quest_file.snbt");
 
-    // Создаем объект SnbtReader и передаем ему файл
-    depozit::SnbtReader reader(inputFile);
+    //созданние объекта класса SnbtReader
+    std::vector<std::string> fileByLine;
+    std::string a;
+    if (file.is_open()) {
+	    while (std::getline(file, a)) {
+		    fileByLine.push_back(a);
+	    }
+    }
+    depozit::SnbtReader reader(fileByLine);
 
-    // Получаем массив квестов из файла
+    //получение массива векторов
     std::vector<depozit::Quest> quests = reader.getQuestArray();
 
-    // Дальше по вашему усмотрению
-    
-    // Записываем измененные квесты обратно в файл
-    reader.writeQuestArray(quests);
+    //получение текстов для перевода, с указанием типа строки
+    for (int i = 0; i < reader.getQuestArray().size(); i++) {
+    	for (int j = 0; j < reader.getQuestArray()[i].getTextArray().size(); j++) {
+    		std::cerr << "type: " << depozit::typeToString(reader.getQuestArray()[i].getTextArray()[j].getType()) << " text: " << reader.getQuestArray()[i].getTextArray()[j].getOriginalText() << "\n";
+    	}
+    }
 
-    //получаем полную строку для перезаписи файла с квестами
+    //пример добавления перевода
+    reader.getQuestArray()[indexArray].getTextArray()[indexText].setTranslate("translatedText");
+
+    //после замены переведённых текстов, можете заменить оригинальный текст на переведенный 
+    reader.getQuestArray()[indexArray].replaceTranslate();
+    
+    //получение полность готовой строки, которую можно использовать для записи в файл (финальный этап)
     std::string ouputString = reader.getBuiltFile();
     return 0;
 }
