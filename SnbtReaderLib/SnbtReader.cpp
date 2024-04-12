@@ -1,90 +1,107 @@
 #include "SnbtReader.h"
 
-namespace depozit {
+namespace depozit
+{
 
-	SnbtReader::SnbtReader(std::vector<std::string> fileByLine) {
-		this->fileByLine.clear();
-		this->fileByLine = fileByLine;
-	};
+    SnbtReader::SnbtReader(const std::vector<std::wstring>& fileByLine)   //basic constructor
+    {   this->fileByLine.clear();
+        this->fileByLine = fileByLine;
+        this->AnalizeFile();
+    }
 
-	std::string SnbtReader::getBuiltFile() {
-		return buildFile();
-	};
+    std::vector<Quest> SnbtReader::getQuestArray() const   //return quests array
+    {   return this->questArray;
+    }
 
-	void SnbtReader::AnalizeFile() { //metaInf(1,2) + start allocationQuests
-		std::vector<std::string> quests;
-		std::string metainf = "";
-		int questBoundaryPosition1 = 0;
-		int questBoundaryPosition2 = 0;
+    void SnbtReader::writeQuestArray(const std::vector<Quest>& questArray)   //set new quest array
+    {   this->questArray = questArray;
+    }
 
-		for (int i = 0; i < this->fileByLine.size(); i++) {
-			if (this->fileByLine[i].find("quests") != std::string::npos && questBoundaryPosition1 == 0) {
-				
-				questBoundaryPosition1 = i;
+    void SnbtReader::setTranslate()   //replace original string to traslated
+    {   for (size_t i = 0; i < questArray.size(); i++)
+        {   questArray[i].replaceTranslate();
+        }
+    }
 
-				for (int j = 0; j <= i; j++) {
-					metainf += this->fileByLine[j];
-				}
-				this->metaInf1 = metainf;
-				metainf.clear();
+    std::wstring SnbtReader::getBuiltFile()  //return complete file as string //is needed to write the translated file back to the file
+    {   return buildFile();
+    }
 
-				for (int j = this->fileByLine.size() - 1; j > 0; j--) {
-					if (this->fileByLine[j].find("]")) {
+    void SnbtReader::AnalizeFile()   //extracts metainf and transfers all the quests to allocationQuests
+    {   std::vector<std::wstring> quests;
+        std::wstring metainf = L"";
+        size_t questBoundaryPosition1 = 0;
+        size_t questBoundaryPosition2 = 0;
+        for (size_t i = 0; i < this->fileByLine.size(); i++)
+        {   if (this->fileByLine[i].find(L"quests") != std::string::npos && questBoundaryPosition1 == 0)
+            {
 
-						questBoundaryPosition2 = j;
+                questBoundaryPosition1 = i;
 
-						for (int c = this->fileByLine.size(); c >= j; c--) {
-							metainf = fileByLine[c] + metainf;
-						}
-						this->metaInf2 = metainf;
-						metainf.clear();
-						break;
-					}
-				}
-				break;
-			}
-		}
+                for (size_t j = 0; j <= i; j++)
+                {   metainf += this->fileByLine[j]+L"\n";
+                }
+                this->metaInf1 = metainf;
+                metainf.clear();
 
-		for (int i = questBoundaryPosition1 + 1; i < questBoundaryPosition2; i++) {
-			quests.push_back(this->fileByLine[i]);
-		}
-		this->allocationQuests(quests);
 
-	};
+                for (int j = this->fileByLine.size() - 1; j >= 0; j--)
+                {   if (this->fileByLine[j].find(L"]") != std::string::npos)
+                    {
 
-	void SnbtReader::allocationQuests(std::vector<std::string> quests) { //splitting quests and adding them to the vector
+                        questBoundaryPosition2 = j;
 
-		int questBracketPositions = quests[0].find("{");
-		int firstBorder = 0;
+                        for (int c = this->fileByLine.size() - 1; c >= j; c--)
+                        {   metainf = fileByLine[c] + L"\n" + metainf;
+                        }
+                        this->metaInf2 = metainf;
+                        metainf.clear();
+                        break;
+                    }
+                }
+                break;
+            }
+        }
 
-		std::vector<std::string> quest;
+        for (size_t i = questBoundaryPosition1 + 1; i < questBoundaryPosition2; i++)
+        {   quests.push_back(this->fileByLine[i]);
+        }
 
-		for (int i = 0; i < quests.size(); i++) {
-			if (quests[i][questBracketPositions] == '}') {
-				for (int j = firstBorder; j <= i; j++) {
-					quest.push_back(quest[j]);
-				}
-				this->questArray.push_back(Quest{ quest });
-				quest.clear();
+        this->allocationQuests(quests);
 
-				firstBorder = i + 1;
-			}
-		}
-	};
+    }
 
-	std::string SnbtReader::buildFile() {
-		std::string output = metaInf1 + "\n";
-		for (int i = 0; i < this->questArray.size(); i++) {
-			output += questArray[i].getQuest();
-		}
-		output += this->metaInf2;
-		return output;
-	};
+    void SnbtReader::allocationQuests(const std::vector<std::wstring>& quests)   //splitting quests and adding them to the vector
+    {
 
-	std::vector<Quest> SnbtReader::getQuestArray() const {
-		return this->questArray;
-	}
-	void SnbtReader::writeQuestArray(std::vector<Quest> questArray) {
-		this->questArray = questArray;
-	};
+        size_t questBracketPositions = quests[0].find(L"{");
+        size_t firstBorder = 0;
+
+        std::vector<std::wstring> questArray;
+
+
+        for (size_t i = 0; i < quests.size(); i++)
+        {   if (quests[i].length() >= questBracketPositions)
+            {   if (quests[i][questBracketPositions] == '}')
+                {   for (size_t j = firstBorder; j <= i; j++)
+                    {   questArray.push_back(quests[j]);
+                    }
+                    this->questArray.push_back(Quest{ questArray });
+                    questArray.clear();
+
+                    firstBorder = i + 1;
+                }
+            }
+        }
+    }
+
+    std::wstring SnbtReader::buildFile()   //build file as string
+    {   std::wstring output = metaInf1;
+        for (size_t i = 0; i < this->questArray.size(); i++)
+        {   output += questArray[i].getQuest()+L"\n";
+        }
+        output += this->metaInf2;
+        return output;
+    }
+
 }
