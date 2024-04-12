@@ -17,7 +17,7 @@ An example of using the library to analyze an FTB Quests file and translate its 
 
 int main() {
     //open the FTB Quests file
-    std::ifstream inputFile("quest_file.snbt");
+    std::ifstream file("quest_file.snbt");
 
     //create a SnbtReader object and pass the file to it
     std::vector<std::string> fileByLine;
@@ -75,7 +75,7 @@ This project is licensed under the [MIT License](https://mit-license.org/).
 
 int main() {
     //открываем файлик с квестами
-    std::ifstream inputFile("quest_file.snbt");
+    std::ifstream file("quest_file.snbt");
 
     //созданние объекта класса SnbtReader
     std::vector<std::string> fileByLine;
