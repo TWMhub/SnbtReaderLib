@@ -33,11 +33,13 @@ int main() {
     std::vector<depozit::Quest> quests = reader.getQuestArray();
 
     //getting all texts for translation
-    for (int i = 0; i < reader.getQuestArray().size(); i++) {
-    	for (int j = 0; j < reader.getQuestArray()[i].getTextArray().size(); j++) {
-    		std::cerr << "type: " << depozit::typeToString(reader.getQuestArray()[i].getTextArray()[j].getType()) << " text: " << reader.getQuestArray()[i].getTextArray()[j].getOriginalText() << "\n";
-    	}
+    for  (const auto& quest : reader)
+    {   for(const auto& text  : quest)
+        {   std::cerr   << " type: " << depozit::typeToString(text.getType())
+            << " text: " << text.getOriginalText()       << '\n';
+        }
     }
+ 
 
     //example of a translation replacement
     reader.getQuestArray()[indexArray].getTextArray()[indexText].setTranslate("translatedText");
@@ -89,10 +91,11 @@ int main() {
     std::vector<depozit::Quest> quests = reader.getQuestArray();
 
     //получение текстов для перевода, с указанием типа строки
-    for (int i = 0; i < reader.getQuestArray().size(); i++) {
-    	for (int j = 0; j < reader.getQuestArray()[i].getTextArray().size(); j++) {
-    		std::cerr << "type: " << depozit::typeToString(reader.getQuestArray()[i].getTextArray()[j].getType()) << " text: " << reader.getQuestArray()[i].getTextArray()[j].getOriginalText() << "\n";
-    	}
+    for  (const auto& quest : reader)
+    {   for(const auto& text  : quest)
+        {   std::cerr   << " type: " << depozit::typeToString(text.getType())
+            << " text: " << text.getOriginalText()       << '\n';
+        }
     }
 
     //пример добавления перевода
