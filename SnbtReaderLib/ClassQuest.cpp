@@ -16,7 +16,9 @@ namespace depozit {
 	}
 
 	void Quest::replaceTranslate() { //replace orinial text to translated text in quest //last step before writing to file
+		for (int i = 0; i < this->textArray.size(); i++) {
 
+		}
 	}
 
 	std::string Quest::getQuest() { //return quest in formating string 
@@ -34,6 +36,7 @@ namespace depozit {
 	void Quest::textAnalyzing(const std::vector<std::string>& quest) { //analyzes the quest and extracts text for translation
 		size_t firstQuote;
 		size_t secondQuote;
+		std::string textLine;
 		//bool isTranslatable = false;
 		//std::vector<std::string> descStrings;
 		for (int i = 0; i < quest.size(); i++) {
@@ -52,9 +55,11 @@ namespace depozit {
 			else if (quest[i].find("description") != std::string::npos) {
 				firstQuote = quest[i].find("[");
 				for (int j = i; j < quest.size(); j++) {
-					if (quest[j].find("\"") != std::string::npos && quest[j].find_last_of("\"") != std::string::npos &&
-						(quest[j].find("{") == std::string::npos || quest[j].find("}") == std::string::npos))
-						this->textArray.push_back(Text{ j, Type::description, quest[j].substr(quest[j].find("\"") + 1,quest[j].find_last_of("\"") - quest[j].find("\"") - 1) });
+					if (quest[j].find("\"") != std::string::npos && quest[j].find_last_of("\"") != std::string::npos && (quest[j].find("{") == std::string::npos)) {
+						textLine = quest[j].substr(quest[j].find("\"") + 1, quest[j].find_last_of("\"") - quest[j].find("\"") - 1);
+						if(textLine.length()>0)
+							this->textArray.push_back(Text{ j, Type::description, textLine });
+					}
 
 					if (quest[j].find("]") != std::string::npos) {
 						i = j + 1;

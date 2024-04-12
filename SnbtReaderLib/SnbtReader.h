@@ -14,7 +14,7 @@ namespace depozit {
 		description
 	};
 
-	std::string typeToString(const Type type); //convert enum class Type to string
+	std::string typeToString(Type type); //convert enum class Type to string
 	std::wstring stringToWstring(const std::string& str); //convert string to wstring 
 	std::string wstringToString(const std::wstring& wstr); //convert wstring to string
 
