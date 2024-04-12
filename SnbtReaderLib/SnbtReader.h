@@ -26,6 +26,7 @@ namespace depozit {
 		std::string getOriginalText() const; //return original text
 		std::string getTranslatedText() const; //return traslated text
 		Type getType() const; //return depozit::Type of line
+		int getPos() const;
 
 		void setTranslate(const std::string& translatedText); //add traslate text
 		

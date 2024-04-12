@@ -21,7 +21,10 @@ namespace depozit {
 	}
 
 	std::string Text::getTranslatedText() const { //return traslated text
-		return this->translatedText;
+		if (translatedText.length() > 0)
+			return translatedText;
+		else
+			return originalText;
 	}
 
 	Type Text::getType() const { //return depozit::Type of line
@@ -32,4 +35,7 @@ namespace depozit {
 		this->translatedText = translatedText;
 	}
 
+	int Text::getPos() const {
+		return this->posTextIndex;
+	}
 }

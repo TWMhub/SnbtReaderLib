@@ -17,7 +17,9 @@ namespace depozit {
 
 	void Quest::replaceTranslate() { //replace orinial text to translated text in quest //last step before writing to file
 		for (int i = 0; i < this->textArray.size(); i++) {
-
+			quest[textArray[i].getPos()]
+				.replace(quest[textArray[i].getPos()].find(textArray[i].getOriginalText()), 
+					textArray[i].getOriginalText().length(), textArray[i].getTranslatedText());
 		}
 	}
 
