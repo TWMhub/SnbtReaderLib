@@ -1,81 +1,90 @@
+#ifndef HEADER_B1271E79EA687DF1
+#define HEADER_B1271E79EA687DF1
+
 #pragma once
 #include <iostream>
 #include <string>
 #include <vector>
 #include <sstream>
+#include <fstream>
 #include <Windows.h>
 
 
-namespace depozit {
+namespace depozit
+{
 
-	enum class Type {
-		title,
-		subtitle,
-		description
-	};
+    enum class Type
+    {
+        title,
+        subtitle,
+        description
+    };
 
-	std::string typeToString(Type type); //convert enum class Type to string
-	std::wstring stringToWstring(const std::string& str); //convert string to wstring 
-	std::string wstringToString(const std::wstring& wstr); //convert wstring to string
+    std::wstring typeToString(const Type type); //convert enum class Type to string
+    std::wstring stringToWstring(const std::string& str); //convert string to wstring
+    std::string wstringToString(const std::wstring& wstr); //convert wstring to string
 
 
-	class Text {
-	public:
-		Text(int pos, Type type, std::string originalText); //basic constructor
-		Text(int pos, Type type, std::string originalText, std::string translatedText); //constructor to save the progress of the previous session 
-		std::string getOriginalText() const; //return original text
-		std::string getTranslatedText() const; //return traslated text
-		Type getType() const; //return depozit::Type of line
-		int getPos() const;
+    class Text
+    {
+    public:
+        Text(size_t pos, Type type, std::wstring originalText); //basic constructor
+        Text(size_t pos, Type type, std::wstring originalText, std::wstring translatedText); //constructor to save the progress of the previous session
+        std::wstring getOriginalText() const; //return original text
+        std::wstring getTranslatedText() const; //return traslated text
+        Type getType() const; //return depozit::Type of line
 
-		void setTranslate(const std::string& translatedText); //add traslate text
-		
-	protected:
-		int posTextIndex = 0;
-		Type type = Type::title;
-		std::string originalText = "";
-		std::string translatedText = "";
-	};
+        void setTranslate(const std::wstring& translatedText); //add traslate text
 
-	class Quest {
-	public:
-		Quest(const std::vector<std::string>& quest); //basic constructor
-		std::vector<Text> getTextArray() const; //return all depozit::Text in quest to translate
+    protected:
+        size_t posTextIndex = 0;
+        Type type = Type::title;
+        std::wstring originalText{ L"" };
+        std::wstring translatedText{ L"" };
+    };
 
-		void setTranslatedArray(int line, std::string translatedText); //I don't know why I added this feature
-		void replaceTranslate(); //replace orinial text to translated text in quest //last step before writing to file
+    class Quest
+    {
+    public:
+        Quest(const std::vector<std::wstring>& quest); //basic constructor
+        std::vector<Text> getTextArray() const; //return all depozit::Text in quest to translate
 
-		std::string getQuest(); //return quest in formating string 
+        void setTranslatedArray(int line, std::wstring translatedText); //I don't know why I added this feature
+        void replaceTranslate(); //replace orinial text to translated text in quest //last step before writing to file
 
-	protected:
-		std::vector<std::string> quest; 
-		std::vector<Text> textArray;
+        std::wstring getQuest(); //return quest in formating string
 
-		void textAnalyzing(const std::vector<std::string>& quest); //analyzes the quest and extracts text for translation
-		//void setArrayText(int pos, Type type, std::string originalText);
-	};
+    protected:
+        std::vector<std::wstring> quest;
+        std::vector<Text> textArray;
 
-	class SnbtReader {
-	public:
-		SnbtReader(const std::vector<std::string>& fileByLine); //basic constructor
+        void textAnalyzing(const std::vector<std::wstring>& quest); //analyzes the quest and extracts text for translation
+        //void setArrayText(int pos, Type type, std::string originalText);
+    };
 
-		std::vector<Quest> getQuestArray() const; //return quests array
-		void writeQuestArray(const std::vector<Quest>& questArray); //set new quest array
-		void setTranslate(); //replace original string to traslated
+    class SnbtReader
+    {
+    public:
+        SnbtReader(const std::vector<std::wstring>& fileByLine); //basic constructor
 
-		std::string getBuiltFile(); //return complete file as string //is needed to write the translated file back to the file
-	private:
-		//std::wstring inputString = L"";
-		std::vector<std::string> fileByLine;
+        std::vector<Quest> getQuestArray() const; //return quests array
+        void writeQuestArray(const std::vector<Quest>& questArray); //set new quest array
+        void setTranslate(); //replace original string to traslated
 
-		std::string metaInf1 = "";
-		std::string metaInf2 = "";
-		std::vector<Quest> questArray;
+        std::wstring getBuiltFile(); //return complete file as string //is needed to write the translated file back to the file
+    private:
+        //std::wstring inputString = L"";
+        std::vector<std::wstring> fileByLine;
 
-		void AnalizeFile(); //extracts metainf and transfers all the quests to allocationQuests
-		void allocationQuests(const std::vector<std::string>& quests); //splitting quests and adding them to the vector
+        std::wstring metaInf1{ L"" };
+        std::wstring metaInf2{ L"" };
+        std::vector<Quest> questArray;
 
-		std::string buildFile(); //build file as string
-	};
+        void AnalizeFile(); //extracts metainf and transfers all the quests to allocationQuests
+        void allocationQuests(const std::vector<std::wstring>& quests); //splitting quests and adding them to the vector
+
+        std::wstring buildFile(); //build file as string
+    };
 
 };
+#endif // header guard
