@@ -1,4 +1,6 @@
 # SnbtReaderLib
+> ⚠️The documentation is outdated, I'm too lazy to rewrite it, for similar functionality please refer to the new version: [repository](https://github.com/TWMhub/MCPackLanguageWizard)
+
 -- en --
 
 ### The SnbtReader library is designed to work with files in the SNBT (Simplified NBT) format, which is created by FTB Quests. This library provides convenient tools for analyzing and working with quests created using the FTB Quests mod, including convenient means for translating these quests.
